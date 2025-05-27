@@ -1,0 +1,96 @@
+.body {
+    font-family: Helvetica, sans-serif;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-wrapper {
+    width: 100%;
+    text-align: center;
+}
+
+.header-img {
+    display: inline-block;
+}
+
+.header-info {
+    text-align: center;
+}
+
+.title {
+    background-color: #004080;
+    color: white;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 6px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.point-of-sale-info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.products {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.products-title {
+    color: #004080;
+}
+
+.products-table {
+    border-collapse: collapse;
+    border: 1px solid #E0E0E0;
+    width: 100%;
+}
+
+.products-table th {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    background-color: #E0E0E0;
+}
+
+.products-table td {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 4px;
+    border: 1px solid #E0E0E0;
+}
+
+.products-table tbody tr:nth-child(even) {
+    background-color: #E6F2FF;
+}
+
+@page {
+    @top-center {
+        content: "Documento di Riconciliazione - Q8";
+        font-family: Helvetica, sans-serif;
+    }
+
+    @bottom-right {
+        content: "Pagina " counter(page) " di " counter(pages);
+        font-family: Helvetica, sans-serif;
+    }
+}
+
+@page :first {
+    @top-center {
+        content: "";
+    }
+}

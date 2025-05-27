@@ -1,5 +1,6 @@
 package com.example.demojte;
 
+import com.example.demojte.models.Product;
 import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Controller
@@ -19,38 +22,36 @@ public class HomeController {
     private final HomeService homeService;
     private static final String DOWNLOAD_PDF_FILE_NAME = "generated_document.pdf";
 
-
-
     @Autowired
     public HomeController(HomeService homeService) {
         this.homeService = homeService;
     }
 
-    @GetMapping(value = "/demo")
-    public String demo() {
-        return "q8_cali";
-    }
-
     @GetMapping(value = "/")
-    public ResponseEntity<Resource> downloadGeneratedPdfInMemory() {
+    public ResponseEntity<Resource> generatePdf() {
         try {
-            // 1. Prepare data for the template
             Map<String, Object> params = new HashMap<>();
-            /*params.put("userName", "Jane Doe");
-            params.put("userEmail", "jane.doe@example.com");
-            params.put("hobbies", Arrays.asList("Reading", "Hiking", "Photography"));*/
+            params.put("title", "Documento di Riconciliazione");
+            params.put("currentDate", LocalDateTime.now());
+            params.put("pointOfSale", "123");
+            params.put("saleDate", LocalDate.of(2025, 12, 12));
+            params.put("saleType", "TIPO");
 
-            // 2. Call the service to render the HTML to a PDF byte array
-            byte[] pdfBytes = homeService.renderTemplateToPdfBytes("q8_cali.jte", params);
+            List<Product> productList = new ArrayList<>();
 
-            // 3. Prepare the byte array as a Resource
+            for (int i = 0; i < 75; i++) {
+                productList.add(new Product("CODE" + i, "Desc" + i));
+            }
+
+            params.put("products", productList);
+
+            byte[] pdfBytes = homeService.renderTemplateToPdfBytes("pages/pos.jte", params);
+
             Resource resource = new ByteArrayResource(pdfBytes);
 
-            // 4. Set headers for file download
             HttpHeaders headers = new HttpHeaders();
             headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + DOWNLOAD_PDF_FILE_NAME + "\"");
 
-            // 5. Return the ResponseEntity
             return ResponseEntity.ok()
                     .headers(headers)
                     .contentLength(pdfBytes.length)

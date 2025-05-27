@@ -77,14 +77,18 @@ public class HomeService {
             params.put("logoBase64", this.logoBase64);
         }
 
-        // 1. Render JTE template to HTML string
         String htmlContent = renderTemplateToHtmlString(templateName, params);
 
-        // 2. Convert HTML string to PDF using OpenHTMLToPDF
         ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
         PdfRendererBuilder builder = new PdfRendererBuilder();
 
-        String baseUrl = Paths.get("src/main/resources/static").toUri().toURL().toString();
+        try (InputStream fontStream = new ClassPathResource("fonts/Helvetica.ttf").getInputStream()) {
+            builder.useFont(() -> fontStream, "Helvetica");
+        } catch (IOException e) {
+            System.err.println("Failed to load font: Helvetica.ttf. Ensure it's in src/main/resources/fonts/");
+        }
+
+        String baseUrl = Paths.get("src/main/resources/").toUri().toURL().toString();
         builder.withHtmlContent(htmlContent, baseUrl);
 
         builder.toStream(pdfOutputStream);
