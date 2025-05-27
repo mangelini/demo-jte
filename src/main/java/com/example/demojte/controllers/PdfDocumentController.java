@@ -1,7 +1,7 @@
 package com.example.demojte.controllers;
 
 import com.example.demojte.config.PdfProperties;
-import com.example.demojte.services.HomeService;
+import com.example.demojte.services.PdfDocumentService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,18 +17,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/pdf")
 @AllArgsConstructor
-public class HomeController {
+public class PdfDocumentController {
 
-    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+    private static final Logger logger = LoggerFactory.getLogger(PdfDocumentController.class);
 
-    private final HomeService homeService;
+    private final PdfDocumentService pdfDocumentService;
     private final PdfProperties pdfProperties;
 
     @GetMapping("/generate")
     public ResponseEntity<Resource> generatePdf() {
         logger.debug("PDF generation request received");
 
-        byte[] pdfBytes = homeService.generatePdf(pdfProperties.getTemplateName());
+        byte[] pdfBytes = pdfDocumentService.generatePdf(pdfProperties.getTemplateName());
         Resource resource = new ByteArrayResource(pdfBytes);
 
         HttpHeaders headers = createPdfHeaders(pdfProperties.getDownloadFileName());

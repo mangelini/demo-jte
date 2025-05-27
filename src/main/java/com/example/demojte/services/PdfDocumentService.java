@@ -1,8 +1,6 @@
 package com.example.demojte.services;
 
-import com.example.demojte.config.PdfProperties;
 import com.example.demojte.exceptions.PdfGenerationException;
-import com.example.demojte.services.interfaces.ImageService;
 import com.example.demojte.services.interfaces.PdfRenderingService;
 import com.example.demojte.services.interfaces.TemplateDataService;
 import com.example.demojte.services.interfaces.TemplateRenderingService;
@@ -15,14 +13,12 @@ import java.util.Map;
 
 @Service
 @AllArgsConstructor
-public class HomeService {
-    private static final Logger logger = LoggerFactory.getLogger(HomeService.class);
+public class PdfDocumentService {
+    private static final Logger logger = LoggerFactory.getLogger(PdfDocumentService.class);
 
     private final TemplateRenderingService templateRenderingService;
     private final PdfRenderingService pdfRenderingService;
     private final TemplateDataService templateDataService;
-    private final ImageService imageService;
-    private final PdfProperties pdfProperties;
 
     /**
      * Generates a PDF from a JTE template.
