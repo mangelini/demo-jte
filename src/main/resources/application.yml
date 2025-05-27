@@ -1,0 +1,25 @@
+app:
+  pdf:
+    download-file-name: "generated_document.pdf"
+    template-name: "pages/pos.jte"
+    font-path: "fonts/Helvetica.ttf"
+    font-family-name: "Helvetica"
+  
+  template:
+    logo-path: "static/logo.png"
+    product-count: 75
+
+spring:
+  application:
+    name: demo-jte
+
+logging:
+  level:
+    com.example.demojte: DEBUG
+    org.springframework: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+gg:
+  jte:
+    development-mode: true
