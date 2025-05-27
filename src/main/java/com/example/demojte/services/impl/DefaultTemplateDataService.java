@@ -4,9 +4,9 @@ import com.example.demojte.models.Product;
 import com.example.demojte.services.interfaces.ImageService;
 import com.example.demojte.services.interfaces.TemplateDataService;
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class DefaultTemplateDataService implements TemplateDataService {
 
     private static final Logger logger = LoggerFactory.getLogger(DefaultTemplateDataService.class);
@@ -31,11 +32,6 @@ public class DefaultTemplateDataService implements TemplateDataService {
     private int productCount;
 
     private String logoBase64;
-
-    @Autowired
-    public DefaultTemplateDataService(ImageService imageService) {
-        this.imageService = imageService;
-    }
 
     @PostConstruct
     private void init() {

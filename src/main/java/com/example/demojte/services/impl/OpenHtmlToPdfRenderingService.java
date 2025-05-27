@@ -4,9 +4,9 @@ import com.example.demojte.config.PdfProperties;
 import com.example.demojte.exceptions.PdfGenerationException;
 import com.example.demojte.services.interfaces.PdfRenderingService;
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
@@ -17,16 +17,12 @@ import java.net.MalformedURLException;
 import java.nio.file.Paths;
 
 @Service
+@AllArgsConstructor
 public class OpenHtmlToPdfRenderingService implements PdfRenderingService {
 
     private static final Logger logger = LoggerFactory.getLogger(OpenHtmlToPdfRenderingService.class);
 
     private final PdfProperties pdfProperties;
-
-    @Autowired
-    public OpenHtmlToPdfRenderingService(PdfProperties pdfProperties) {
-        this.pdfProperties = pdfProperties;
-    }
 
     @Override
     public byte[] convertHtmlToPdf(String htmlContent) throws PdfGenerationException {
